@@ -5,8 +5,8 @@
  * Author : Omar
  */ 
 
-#include "D:\Sprints\LED\LED\ECUAL\LED.h"
-#include "D:\Sprints\LED\LED\ECUAL\Button.h"
+#include "ECUAL/LED.h"
+#include "ECUAL/Button.h"
 
 int main(void)
 {
