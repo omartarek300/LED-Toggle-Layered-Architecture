@@ -7,7 +7,7 @@
 
 #ifndef DIO_H_
 #define DIO_H_
-#include "D:\Sprints\LED\LED\MC\My_avr.h"
+#include "../MC/My_avr.h"
 #define PA 0 //port A
 #define PB 1 //port B
 #define PC 2 //port C
