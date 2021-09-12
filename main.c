@@ -5,8 +5,6 @@
  * Author : Omar
  */ 
 
-#define F_CPU 1000000UL  // 1 MHz
-#include <util/delay.h>
 #include "D:\Sprints\LED\LED\ECUAL\LED.h"
 #include "D:\Sprints\LED\LED\ECUAL\Button.h"
 
@@ -19,11 +17,9 @@ int main(void)
     {
 		if(Button_read())
 		{
-			_delay_ms(15); //FOR DEBOUNCING
-			if(Button_read())
-			{
-				LED_toggle();
-			}
+			
+			LED_toggle();
+			
 		}
     }
 }
