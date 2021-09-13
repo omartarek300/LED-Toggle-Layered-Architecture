@@ -1,0 +1,419 @@
+
+LED-Toggle-Layered-Architecture.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000001bc  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  00000230  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000001  00800060  00800060  00000230  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  00000230  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000260  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 000000b8  00000000  00000000  0000029c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000a3d  00000000  00000000  00000354  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 0000070a  00000000  00000000  00000d91  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   00000464  00000000  00000000  0000149b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000100  00000000  00000000  00001900  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000003b9  00000000  00000000  00001a00  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    0000050a  00000000  00000000  00001db9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000078  00000000  00000000  000022c3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   8:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  10:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  14:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  18:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  1c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  20:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  24:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  28:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  2c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  30:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  34:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  38:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  3c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  40:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  44:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  48:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  4c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  50:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_clear_bss>:
+  60:	20 e0       	ldi	r18, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	01 c0       	rjmp	.+2      	; 0x6a <.do_clear_bss_start>
+
+00000068 <.do_clear_bss_loop>:
+  68:	1d 92       	st	X+, r1
+
+0000006a <.do_clear_bss_start>:
+  6a:	a1 36       	cpi	r26, 0x61	; 97
+  6c:	b2 07       	cpc	r27, r18
+  6e:	e1 f7       	brne	.-8      	; 0x68 <.do_clear_bss_loop>
+  70:	0e 94 63 00 	call	0xc6	; 0xc6 <main>
+  74:	0c 94 dc 00 	jmp	0x1b8	; 0x1b8 <_exit>
+
+00000078 <__bad_interrupt>:
+  78:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000007c <Button_init>:
+ *  Author: Omar
+ */ 
+#include "Button.h"
+void Button_init(uint8_t port_name,uint8_t pin_num)
+{
+	DIO_init(port_name, pin_num);
+  7c:	0e 94 7a 00 	call	0xf4	; 0xf4 <DIO_init>
+  80:	08 95       	ret
+
+00000082 <Button_read>:
+}
+uint8_t Button_read(uint8_t port_name,uint8_t pin_num)
+{
+	return DIO_read(port_name,  pin_num);
+  82:	0e 94 c6 00 	call	0x18c	; 0x18c <DIO_read>
+  86:	08 95       	ret
+
+00000088 <LED_init>:
+ */
+#include "LED.h"
+
+void LED_init(uint8_t port_name,uint8_t pin_num)
+{
+	DIO_init(port_name, pin_num);
+  88:	0e 94 7a 00 	call	0xf4	; 0xf4 <DIO_init>
+  8c:	08 95       	ret
+
+0000008e <LED_on>:
+}
+void LED_on(uint8_t port_name,uint8_t pin_num)
+{
+	DIO_set(port_name, pin_num);
+  8e:	0e 94 92 00 	call	0x124	; 0x124 <DIO_set>
+  92:	08 95       	ret
+
+00000094 <LED_off>:
+}
+void LED_off(uint8_t port_name,uint8_t pin_num)
+{
+	DIO_reset(port_name, pin_num);
+  94:	0e 94 aa 00 	call	0x154	; 0x154 <DIO_reset>
+  98:	08 95       	ret
+
+0000009a <LED_toggle>:
+}
+void LED_toggle()
+{
+	volatile static uint8_t state = OFF;
+	if(state == ON)
+  9a:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  9e:	81 30       	cpi	r24, 0x01	; 1
+  a0:	39 f4       	brne	.+14     	; 0xb0 <LED_toggle+0x16>
+	{
+		LED_off(PA,pin1);
+  a2:	62 e0       	ldi	r22, 0x02	; 2
+  a4:	80 e0       	ldi	r24, 0x00	; 0
+  a6:	0e 94 4a 00 	call	0x94	; 0x94 <LED_off>
+		state = OFF;
+  aa:	10 92 60 00 	sts	0x0060, r1	; 0x800060 <__DATA_REGION_ORIGIN__>
+  ae:	08 95       	ret
+	}
+	else if(state == OFF)
+  b0:	80 91 60 00 	lds	r24, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  b4:	81 11       	cpse	r24, r1
+  b6:	06 c0       	rjmp	.+12     	; 0xc4 <LED_toggle+0x2a>
+	{
+		LED_on(PA,pin1);
+  b8:	62 e0       	ldi	r22, 0x02	; 2
+  ba:	0e 94 47 00 	call	0x8e	; 0x8e <LED_on>
+		state = ON;
+  be:	81 e0       	ldi	r24, 0x01	; 1
+  c0:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+  c4:	08 95       	ret
+
+000000c6 <main>:
+
+#include "ECUAL/LED.h"
+#include "ECUAL/Button.h"
+int main(void)
+{
+    LED_init(PA,pin1);
+  c6:	62 e0       	ldi	r22, 0x02	; 2
+  c8:	80 e0       	ldi	r24, 0x00	; 0
+  ca:	0e 94 44 00 	call	0x88	; 0x88 <LED_init>
+	Button_init(PC,pin0);
+  ce:	61 e0       	ldi	r22, 0x01	; 1
+  d0:	82 e0       	ldi	r24, 0x02	; 2
+  d2:	0e 94 3e 00 	call	0x7c	; 0x7c <Button_init>
+	
+    while (1) 
+    {
+		if(Button_read(PC,pin0))
+  d6:	61 e0       	ldi	r22, 0x01	; 1
+  d8:	82 e0       	ldi	r24, 0x02	; 2
+  da:	0e 94 41 00 	call	0x82	; 0x82 <Button_read>
+  de:	88 23       	and	r24, r24
+  e0:	d1 f3       	breq	.-12     	; 0xd6 <main+0x10>
+		{
+			if(Button_read(PC,pin0))
+  e2:	61 e0       	ldi	r22, 0x01	; 1
+  e4:	82 e0       	ldi	r24, 0x02	; 2
+  e6:	0e 94 41 00 	call	0x82	; 0x82 <Button_read>
+  ea:	88 23       	and	r24, r24
+  ec:	a1 f3       	breq	.-24     	; 0xd6 <main+0x10>
+			{
+				LED_toggle();
+  ee:	0e 94 4d 00 	call	0x9a	; 0x9a <LED_toggle>
+  f2:	f1 cf       	rjmp	.-30     	; 0xd6 <main+0x10>
+
+000000f4 <DIO_init>:
+ *      Author: Omar
+ */
+#include "dio.h"
+void DIO_init(uint8_t Port_name, uint8_t value )
+{
+	switch(Port_name)
+  f4:	81 30       	cpi	r24, 0x01	; 1
+  f6:	51 f0       	breq	.+20     	; 0x10c <DIO_init+0x18>
+  f8:	28 f0       	brcs	.+10     	; 0x104 <DIO_init+0x10>
+  fa:	82 30       	cpi	r24, 0x02	; 2
+  fc:	59 f0       	breq	.+22     	; 0x114 <DIO_init+0x20>
+  fe:	83 30       	cpi	r24, 0x03	; 3
+ 100:	69 f0       	breq	.+26     	; 0x11c <DIO_init+0x28>
+ 102:	08 95       	ret
+	{
+		case PA:
+		{
+			DDRA |= value;
+ 104:	8a b3       	in	r24, 0x1a	; 26
+ 106:	68 2b       	or	r22, r24
+ 108:	6a bb       	out	0x1a, r22	; 26
+		}
+		break;
+ 10a:	08 95       	ret
+		case PB:
+		{
+			DDRB |= value;
+ 10c:	87 b3       	in	r24, 0x17	; 23
+ 10e:	68 2b       	or	r22, r24
+ 110:	67 bb       	out	0x17, r22	; 23
+		}
+		break;
+ 112:	08 95       	ret
+		case PC:
+		{
+			DDRC |= value;
+ 114:	84 b3       	in	r24, 0x14	; 20
+ 116:	68 2b       	or	r22, r24
+ 118:	64 bb       	out	0x14, r22	; 20
+		}
+		break;
+ 11a:	08 95       	ret
+		case PD:
+		{
+			DDRD |= value;
+ 11c:	81 b3       	in	r24, 0x11	; 17
+ 11e:	68 2b       	or	r22, r24
+ 120:	61 bb       	out	0x11, r22	; 17
+ 122:	08 95       	ret
+
+00000124 <DIO_set>:
+		break;
+	}
+}
+void DIO_set(uint8_t Port_name, uint8_t value)
+{
+	switch(Port_name)
+ 124:	81 30       	cpi	r24, 0x01	; 1
+ 126:	51 f0       	breq	.+20     	; 0x13c <DIO_set+0x18>
+ 128:	28 f0       	brcs	.+10     	; 0x134 <DIO_set+0x10>
+ 12a:	82 30       	cpi	r24, 0x02	; 2
+ 12c:	59 f0       	breq	.+22     	; 0x144 <DIO_set+0x20>
+ 12e:	83 30       	cpi	r24, 0x03	; 3
+ 130:	69 f0       	breq	.+26     	; 0x14c <DIO_set+0x28>
+ 132:	08 95       	ret
+	{
+		case PA:
+		{
+			PORTA |= value;
+ 134:	8b b3       	in	r24, 0x1b	; 27
+ 136:	68 2b       	or	r22, r24
+ 138:	6b bb       	out	0x1b, r22	; 27
+		}
+		break;
+ 13a:	08 95       	ret
+		case PB:
+		{
+			PORTA |= value;
+ 13c:	8b b3       	in	r24, 0x1b	; 27
+ 13e:	68 2b       	or	r22, r24
+ 140:	6b bb       	out	0x1b, r22	; 27
+		}
+		break;
+ 142:	08 95       	ret
+		case PC:
+		{
+			PORTA |= value;
+ 144:	8b b3       	in	r24, 0x1b	; 27
+ 146:	68 2b       	or	r22, r24
+ 148:	6b bb       	out	0x1b, r22	; 27
+		}
+		break;
+ 14a:	08 95       	ret
+		case PD:
+		{
+			PORTA |= value;
+ 14c:	8b b3       	in	r24, 0x1b	; 27
+ 14e:	68 2b       	or	r22, r24
+ 150:	6b bb       	out	0x1b, r22	; 27
+ 152:	08 95       	ret
+
+00000154 <DIO_reset>:
+		break;
+	}
+}
+void DIO_reset(uint8_t Port_name, uint8_t value)
+{
+	switch(Port_name)
+ 154:	81 30       	cpi	r24, 0x01	; 1
+ 156:	59 f0       	breq	.+22     	; 0x16e <DIO_reset+0x1a>
+ 158:	28 f0       	brcs	.+10     	; 0x164 <DIO_reset+0x10>
+ 15a:	82 30       	cpi	r24, 0x02	; 2
+ 15c:	69 f0       	breq	.+26     	; 0x178 <DIO_reset+0x24>
+ 15e:	83 30       	cpi	r24, 0x03	; 3
+ 160:	81 f0       	breq	.+32     	; 0x182 <DIO_reset+0x2e>
+ 162:	08 95       	ret
+	{
+		case PA:
+		{
+			PORTA = PORTA & (~value);
+ 164:	8b b3       	in	r24, 0x1b	; 27
+ 166:	60 95       	com	r22
+ 168:	68 23       	and	r22, r24
+ 16a:	6b bb       	out	0x1b, r22	; 27
+		}
+		break;
+ 16c:	08 95       	ret
+		case PB:
+		{
+			PORTB = PORTB & (~value);
+ 16e:	88 b3       	in	r24, 0x18	; 24
+ 170:	60 95       	com	r22
+ 172:	68 23       	and	r22, r24
+ 174:	68 bb       	out	0x18, r22	; 24
+		}
+		break;
+ 176:	08 95       	ret
+		case PC:
+		{
+			PORTC = PORTC & (~value);
+ 178:	85 b3       	in	r24, 0x15	; 21
+ 17a:	60 95       	com	r22
+ 17c:	68 23       	and	r22, r24
+ 17e:	65 bb       	out	0x15, r22	; 21
+		}
+		break;
+ 180:	08 95       	ret
+		case PD:
+		{
+			PORTD = PORTD & (~value);
+ 182:	82 b3       	in	r24, 0x12	; 18
+ 184:	60 95       	com	r22
+ 186:	68 23       	and	r22, r24
+ 188:	62 bb       	out	0x12, r22	; 18
+ 18a:	08 95       	ret
+
+0000018c <DIO_read>:
+	}
+}
+uint8_t DIO_read(uint8_t Port_name, uint8_t value )
+{
+	uint8_t Data = 0;
+	switch(Port_name)
+ 18c:	81 30       	cpi	r24, 0x01	; 1
+ 18e:	49 f0       	breq	.+18     	; 0x1a2 <DIO_read+0x16>
+ 190:	28 f0       	brcs	.+10     	; 0x19c <DIO_read+0x10>
+ 192:	82 30       	cpi	r24, 0x02	; 2
+ 194:	49 f0       	breq	.+18     	; 0x1a8 <DIO_read+0x1c>
+ 196:	83 30       	cpi	r24, 0x03	; 3
+ 198:	51 f0       	breq	.+20     	; 0x1ae <DIO_read+0x22>
+ 19a:	0c c0       	rjmp	.+24     	; 0x1b4 <DIO_read+0x28>
+	{
+		case PA:
+		{
+			Data =  PINA & value;
+ 19c:	89 b3       	in	r24, 0x19	; 25
+ 19e:	86 23       	and	r24, r22
+		}
+		break;
+ 1a0:	08 95       	ret
+		case PB:
+		{
+			Data =  PINB & value;
+ 1a2:	86 b3       	in	r24, 0x16	; 22
+ 1a4:	86 23       	and	r24, r22
+		}
+		break;
+ 1a6:	08 95       	ret
+		case PC:
+		{
+			Data =  PINC & value;
+ 1a8:	83 b3       	in	r24, 0x13	; 19
+ 1aa:	86 23       	and	r24, r22
+		}
+		break;
+ 1ac:	08 95       	ret
+		case PD:
+		{
+			Data =  PIND & value;
+ 1ae:	80 b3       	in	r24, 0x10	; 16
+ 1b0:	86 23       	and	r24, r22
+		}
+		break;
+ 1b2:	08 95       	ret
+		break;
+	}
+}
+uint8_t DIO_read(uint8_t Port_name, uint8_t value )
+{
+	uint8_t Data = 0;
+ 1b4:	80 e0       	ldi	r24, 0x00	; 0
+			Data =  PIND & value;
+		}
+		break;
+	}
+	return Data;
+}
+ 1b6:	08 95       	ret
+
+000001b8 <_exit>:
+ 1b8:	f8 94       	cli
+
+000001ba <__stop_program>:
+ 1ba:	ff cf       	rjmp	.-2      	; 0x1ba <__stop_program>
