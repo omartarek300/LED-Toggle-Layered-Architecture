@@ -23,11 +23,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   9 .debug_frame  00000100  00000000  00000000  00001900  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000003b9  00000000  00000000  00001a00  2**0
+ 10 .debug_str    000003b8  00000000  00000000  00001a00  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000050a  00000000  00000000  00001db9  2**0
+ 11 .debug_loc    0000050a  00000000  00000000  00001db8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000078  00000000  00000000  000022c3  2**0
+ 12 .debug_ranges 00000078  00000000  00000000  000022c2  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -196,7 +196,7 @@ int main(void)
  *      Author: Omar
  */
 #include "dio.h"
-void DIO_init(uint8_t Port_name, uint8_t value )
+void DIO_init(uint8_t Port_name, uint8_t pins )
 {
 	switch(Port_name)
   f4:	81 30       	cpi	r24, 0x01	; 1
@@ -210,7 +210,7 @@ void DIO_init(uint8_t Port_name, uint8_t value )
 	{
 		case PA:
 		{
-			DDRA |= value;
+			DDRA |= pins;
  104:	8a b3       	in	r24, 0x1a	; 26
  106:	68 2b       	or	r22, r24
  108:	6a bb       	out	0x1a, r22	; 26
@@ -219,7 +219,7 @@ void DIO_init(uint8_t Port_name, uint8_t value )
  10a:	08 95       	ret
 		case PB:
 		{
-			DDRB |= value;
+			DDRB |= pins;
  10c:	87 b3       	in	r24, 0x17	; 23
  10e:	68 2b       	or	r22, r24
  110:	67 bb       	out	0x17, r22	; 23
@@ -228,7 +228,7 @@ void DIO_init(uint8_t Port_name, uint8_t value )
  112:	08 95       	ret
 		case PC:
 		{
-			DDRC |= value;
+			DDRC |= pins;
  114:	84 b3       	in	r24, 0x14	; 20
  116:	68 2b       	or	r22, r24
  118:	64 bb       	out	0x14, r22	; 20
@@ -237,7 +237,7 @@ void DIO_init(uint8_t Port_name, uint8_t value )
  11a:	08 95       	ret
 		case PD:
 		{
-			DDRD |= value;
+			DDRD |= pins;
  11c:	81 b3       	in	r24, 0x11	; 17
  11e:	68 2b       	or	r22, r24
  120:	61 bb       	out	0x11, r22	; 17
@@ -247,7 +247,7 @@ void DIO_init(uint8_t Port_name, uint8_t value )
 		break;
 	}
 }
-void DIO_set(uint8_t Port_name, uint8_t value)
+void DIO_set(uint8_t Port_name, uint8_t pins)
 {
 	switch(Port_name)
  124:	81 30       	cpi	r24, 0x01	; 1
@@ -261,7 +261,7 @@ void DIO_set(uint8_t Port_name, uint8_t value)
 	{
 		case PA:
 		{
-			PORTA |= value;
+			PORTA |= pins;
  134:	8b b3       	in	r24, 0x1b	; 27
  136:	68 2b       	or	r22, r24
  138:	6b bb       	out	0x1b, r22	; 27
@@ -270,7 +270,7 @@ void DIO_set(uint8_t Port_name, uint8_t value)
  13a:	08 95       	ret
 		case PB:
 		{
-			PORTA |= value;
+			PORTA |= pins;
  13c:	8b b3       	in	r24, 0x1b	; 27
  13e:	68 2b       	or	r22, r24
  140:	6b bb       	out	0x1b, r22	; 27
@@ -279,7 +279,7 @@ void DIO_set(uint8_t Port_name, uint8_t value)
  142:	08 95       	ret
 		case PC:
 		{
-			PORTA |= value;
+			PORTA |= pins;
  144:	8b b3       	in	r24, 0x1b	; 27
  146:	68 2b       	or	r22, r24
  148:	6b bb       	out	0x1b, r22	; 27
@@ -288,7 +288,7 @@ void DIO_set(uint8_t Port_name, uint8_t value)
  14a:	08 95       	ret
 		case PD:
 		{
-			PORTA |= value;
+			PORTA |= pins;
  14c:	8b b3       	in	r24, 0x1b	; 27
  14e:	68 2b       	or	r22, r24
  150:	6b bb       	out	0x1b, r22	; 27
@@ -298,7 +298,7 @@ void DIO_set(uint8_t Port_name, uint8_t value)
 		break;
 	}
 }
-void DIO_reset(uint8_t Port_name, uint8_t value)
+void DIO_reset(uint8_t Port_name, uint8_t pins)
 {
 	switch(Port_name)
  154:	81 30       	cpi	r24, 0x01	; 1
@@ -312,7 +312,7 @@ void DIO_reset(uint8_t Port_name, uint8_t value)
 	{
 		case PA:
 		{
-			PORTA = PORTA & (~value);
+			PORTA = PORTA & (~pins);
  164:	8b b3       	in	r24, 0x1b	; 27
  166:	60 95       	com	r22
  168:	68 23       	and	r22, r24
@@ -322,7 +322,7 @@ void DIO_reset(uint8_t Port_name, uint8_t value)
  16c:	08 95       	ret
 		case PB:
 		{
-			PORTB = PORTB & (~value);
+			PORTB = PORTB & (~pins);
  16e:	88 b3       	in	r24, 0x18	; 24
  170:	60 95       	com	r22
  172:	68 23       	and	r22, r24
@@ -332,7 +332,7 @@ void DIO_reset(uint8_t Port_name, uint8_t value)
  176:	08 95       	ret
 		case PC:
 		{
-			PORTC = PORTC & (~value);
+			PORTC = PORTC & (~pins);
  178:	85 b3       	in	r24, 0x15	; 21
  17a:	60 95       	com	r22
  17c:	68 23       	and	r22, r24
@@ -342,7 +342,7 @@ void DIO_reset(uint8_t Port_name, uint8_t value)
  180:	08 95       	ret
 		case PD:
 		{
-			PORTD = PORTD & (~value);
+			PORTD = PORTD & (~pins);
  182:	82 b3       	in	r24, 0x12	; 18
  184:	60 95       	com	r22
  186:	68 23       	and	r22, r24
@@ -352,7 +352,7 @@ void DIO_reset(uint8_t Port_name, uint8_t value)
 0000018c <DIO_read>:
 	}
 }
-uint8_t DIO_read(uint8_t Port_name, uint8_t value )
+uint8_t DIO_read(uint8_t Port_name, uint8_t pins )
 {
 	uint8_t Data = 0;
 	switch(Port_name)
@@ -367,7 +367,7 @@ uint8_t DIO_read(uint8_t Port_name, uint8_t value )
 	{
 		case PA:
 		{
-			Data =  PINA & value;
+			Data =  PINA & pins;
  19c:	89 b3       	in	r24, 0x19	; 25
  19e:	86 23       	and	r24, r22
 		}
@@ -375,7 +375,7 @@ uint8_t DIO_read(uint8_t Port_name, uint8_t value )
  1a0:	08 95       	ret
 		case PB:
 		{
-			Data =  PINB & value;
+			Data =  PINB & pins;
  1a2:	86 b3       	in	r24, 0x16	; 22
  1a4:	86 23       	and	r24, r22
 		}
@@ -383,7 +383,7 @@ uint8_t DIO_read(uint8_t Port_name, uint8_t value )
  1a6:	08 95       	ret
 		case PC:
 		{
-			Data =  PINC & value;
+			Data =  PINC & pins;
  1a8:	83 b3       	in	r24, 0x13	; 19
  1aa:	86 23       	and	r24, r22
 		}
@@ -391,7 +391,7 @@ uint8_t DIO_read(uint8_t Port_name, uint8_t value )
  1ac:	08 95       	ret
 		case PD:
 		{
-			Data =  PIND & value;
+			Data =  PIND & pins;
  1ae:	80 b3       	in	r24, 0x10	; 16
  1b0:	86 23       	and	r24, r22
 		}
@@ -400,11 +400,11 @@ uint8_t DIO_read(uint8_t Port_name, uint8_t value )
 		break;
 	}
 }
-uint8_t DIO_read(uint8_t Port_name, uint8_t value )
+uint8_t DIO_read(uint8_t Port_name, uint8_t pins )
 {
 	uint8_t Data = 0;
  1b4:	80 e0       	ldi	r24, 0x00	; 0
-			Data =  PIND & value;
+			Data =  PIND & pins;
 		}
 		break;
 	}

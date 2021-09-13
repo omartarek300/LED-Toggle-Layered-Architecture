@@ -26,34 +26,34 @@
 
 /*******
 	Function Description: this function sets the directions of the port whether input or output
-	parameter: DDR: is the port name 
-			   value: is an integer number specifies the pins you want to select		   
+	parameter:  port_name: is the port name 
+			   pins: is an integer number specifies the pins you want to select		   
 	return: none
 */
-void DIO_init(uint8_t DDR, uint8_t value );
+void DIO_init(uint8_t port_name, uint8_t pins );
 
 /*******
 	Function Description: this function outs a specific value on the port
-	parameter: port: is the port name 
-			   value: is an integer number describes the output on the pins of that port  	   
+	parameter: port_name: is the port name 
+			   pins: is an integer number describes the output on the pins of that port  	   
 	return: none
 */
-void DIO_set(uint8_t port, uint8_t value);
+void DIO_set(uint8_t port_name, uint8_t pins);
 
 /*******
 	Function Description: this function reads the coming input to the port
-	parameter: State_reg: is the port name 
-			   value: is an integer number specifies the pins you want to read from
+	parameter: port_name: is the port name 
+			   pins: is an integer number specifies the pins you want to read from
 	return: it returns unsigned 8-bit integer carries the read data
 */
-uint8_t DIO_read(uint8_t State_reg, uint8_t value );
+uint8_t DIO_read(uint8_t port_name, uint8_t value );
 
 /*******
 	Function Description: function to reset(off) pins on the port
 	parameter: Port_name: is the port name 
-			   value: is an integer number specifies the pins you want to reset
+			   pins: is an integer number specifies the pins you want to reset
 	return: none
 */
-void DIO_reset(uint8_t Port_name, uint8_t value);
+void DIO_reset(uint8_t Port_name, uint8_t pins);
 
 #endif /* DIO_H_ */

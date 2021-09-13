@@ -5,107 +5,107 @@
  *      Author: Omar
  */
 #include "dio.h"
-void DIO_init(uint8_t Port_name, uint8_t value )
+void DIO_init(uint8_t Port_name, uint8_t pins )
 {
 	switch(Port_name)
 	{
 		case PA:
 		{
-			DDRA |= value;
+			DDRA |= pins;
 		}
 		break;
 		case PB:
 		{
-			DDRB |= value;
+			DDRB |= pins;
 		}
 		break;
 		case PC:
 		{
-			DDRC |= value;
+			DDRC |= pins;
 		}
 		break;
 		case PD:
 		{
-			DDRD |= value;
+			DDRD |= pins;
 		}
 		break;
 	}
 }
-void DIO_set(uint8_t Port_name, uint8_t value)
+void DIO_set(uint8_t Port_name, uint8_t pins)
 {
 	switch(Port_name)
 	{
 		case PA:
 		{
-			PORTA |= value;
+			PORTA |= pins;
 		}
 		break;
 		case PB:
 		{
-			PORTA |= value;
+			PORTA |= pins;
 		}
 		break;
 		case PC:
 		{
-			PORTA |= value;
+			PORTA |= pins;
 		}
 		break;
 		case PD:
 		{
-			PORTA |= value;
+			PORTA |= pins;
 		}
 		break;
 	}
 }
-void DIO_reset(uint8_t Port_name, uint8_t value)
+void DIO_reset(uint8_t Port_name, uint8_t pins)
 {
 	switch(Port_name)
 	{
 		case PA:
 		{
-			PORTA = PORTA & (~value);
+			PORTA = PORTA & (~pins);
 		}
 		break;
 		case PB:
 		{
-			PORTB = PORTB & (~value);
+			PORTB = PORTB & (~pins);
 		}
 		break;
 		case PC:
 		{
-			PORTC = PORTC & (~value);
+			PORTC = PORTC & (~pins);
 		}
 		break;
 		case PD:
 		{
-			PORTD = PORTD & (~value);
+			PORTD = PORTD & (~pins);
 		}
 		break;
 	}
 }
-uint8_t DIO_read(uint8_t Port_name, uint8_t value )
+uint8_t DIO_read(uint8_t Port_name, uint8_t pins )
 {
 	uint8_t Data = 0;
 	switch(Port_name)
 	{
 		case PA:
 		{
-			Data =  PINA & value;
+			Data =  PINA & pins;
 		}
 		break;
 		case PB:
 		{
-			Data =  PINB & value;
+			Data =  PINB & pins;
 		}
 		break;
 		case PC:
 		{
-			Data =  PINC & value;
+			Data =  PINC & pins;
 		}
 		break;
 		case PD:
 		{
-			Data =  PIND & value;
+			Data =  PIND & pins;
 		}
 		break;
 	}

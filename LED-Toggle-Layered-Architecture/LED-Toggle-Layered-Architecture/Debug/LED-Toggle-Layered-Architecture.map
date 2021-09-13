@@ -458,7 +458,7 @@ END GROUP
  .debug_frame   0x00000088       0x24 main.o
  .debug_frame   0x000000ac       0x54 MCAL/dio.o
 
-.debug_str      0x00000000      0x3b9
+.debug_str      0x00000000      0x3b8
  *(.debug_str)
  .debug_str     0x00000000      0x196 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega32/avr5/crtatmega32.o
  .debug_str     0x00000196      0x1a5 ECUAL/Button.o
@@ -467,8 +467,8 @@ END GROUP
                                 0x1e3 (size before relaxing)
  .debug_str     0x00000385       0x11 main.o
                                 0x1b3 (size before relaxing)
- .debug_str     0x00000396       0x23 MCAL/dio.o
-                                0x1c5 (size before relaxing)
+ .debug_str     0x00000396       0x22 MCAL/dio.o
+                                0x1c4 (size before relaxing)
 
 .debug_loc      0x00000000      0x50a
  *(.debug_loc)
